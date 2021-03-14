@@ -56,15 +56,30 @@ class Bob {
 
     public function isAYellQuestion(string $phrase)
     {
-        
         $upperQuantity = $this->countUppercases($phrase);
         $hasInterrogation = $this->hasAtTheEndAnInterrogation($phrase);
         $lowerQuantity = $this->countLowercases($phrase);
 
-
         if( $upperQuantity >= 2 && $hasInterrogation && $lowerQuantity < 1) {
             return true;
         }
+    }
+
+    public function sayNothing($phrase) : bool
+    {
+        $result = ltrim($phrase);
+        if(strlen($result) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function hasAtTheEndAnInterrogation(string $phrase) : bool
+    {
+        $phrase = trim($phrase);
+        $lastChar = substr($phrase, -1, 1);
+        $result = ($lastChar == "?") ? true : false;
+        return $result;
     }
 
     public function countUppercases(string $phrase) : int
@@ -76,45 +91,34 @@ class Bob {
         return $upperQuantity;
     }
 
-    public function hasAtTheEndAnInterrogation(string $phrase) : bool
-    {
-        $phrase = trim($phrase);
-        $lastChar = substr($phrase, -1, 1);
-        $result = ($lastChar == "?") ? true : false;
-        return $result;
-    }
-
     public function countLowercases(string $phrase) : int
     {
         $regex = '/([[:lower:]]{2,})/';
-        preg_match($regex, $phrase, $matches);
-        $lowerQuantity = count($matches);
+        $lowerQuantity = $this->returnNumbOfMatches($regex, $phrase);
         return $lowerQuantity;
     }
 
     public function hasDigits(string $phrase) : int
     {
         $regex = '/(\d)/';
-        preg_match($regex, $phrase, $matches);
-        $digitQuantity = count($matches);
+        $digitQuantity = $this->returnNumbOfMatches($regex, $phrase);
         return $digitQuantity;
     }
 
     public function hasNoLetters(string $phrase) : bool
     {
         $regex = '/[a-zA-Z]/';
-        preg_match($regex, $phrase, $matches);
-        $letterQuantity = count($matches);
+        $letterQuantity = $this->returnNumbOfMatches($regex, $phrase);
         $result = ($letterQuantity < 1) ?  true : false;
         return $result;
     }
 
-    public function sayNothing($phrase) : bool
+    public function returnNumbOfMatches($regex, $phrase) : int
     {
-        $result = ltrim($phrase);
-        if(strlen($result) == 0) {
-            return true;
-        }
-        return false;
+        preg_match($regex, $phrase, $matches);
+        $result = count($matches);
+        return $result;
     }
+
+    
 }
