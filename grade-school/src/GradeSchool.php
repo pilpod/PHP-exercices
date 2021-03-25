@@ -31,7 +31,12 @@ class GradeSchool {
     {
         $alphabeticalListOfStudents = [];
 
-        
+        foreach ($this->studentsList as $key => $student) {
+            $key = $student->getGrade();
+            $alphabeticalListOfStudents[$key] = [$student->getName()];
+        }
+
+        var_dump($alphabeticalListOfStudents);
     }
 
 }

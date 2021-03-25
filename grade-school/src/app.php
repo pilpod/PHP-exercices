@@ -10,6 +10,6 @@ $gradeSchool->add("Marc", 5);
 $gradeSchool->add("Virginie", 5);
 $gradeSchool->add("Claire", 5);
 $gradeSchool->add("Mehdi", 4);
-$gradeSchool->grade(5);
+$gradeSchool->studentsByGradeAlphabetical();
 
 ?>
