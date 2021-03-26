@@ -33,10 +33,18 @@ class GradeSchool {
 
         foreach ($this->studentsList as $key => $student) {
             $key = $student->getGrade();
-            $alphabeticalListOfStudents[$key] = [$student->getName()];
+
+            if(array_key_exists($key, $alphabeticalListOfStudents)) {
+                array_push($alphabeticalListOfStudents[$key], $student->getName());
+                sort($alphabeticalListOfStudents[$key]);
+            } else {
+                $alphabeticalListOfStudents[$key] = [$student->getName()];
+            }
+
+            ksort($alphabeticalListOfStudents);
         }
 
-        var_dump($alphabeticalListOfStudents);
+        return ($alphabeticalListOfStudents);
     }
 
 }
